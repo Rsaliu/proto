@@ -1,0 +1,32 @@
+syntax = "proto3";
+package authentication;
+
+service Authentication {
+    rpc GetToken (TokenClaims) returns (Token);
+    rpc VerifyToken (Token) returns (Status);
+}
+
+message TokenClaims {
+    // Request message contains token claims
+    string audience = 1;
+    int64 expiry = 2;
+    int64 issued_at = 3;
+    string issuer = 4;
+    int64 not_before = 5;
+    string subject = 6;
+}
+
+message Token {
+    // Response message contains token 
+    string token = 1;
+}
+
+
+enum Status {
+  SUCCESS = 0;
+  EXPIRED= 1;
+  INVALID_TOKEN = 2;
+}
+
+
+
