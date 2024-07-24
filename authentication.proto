@@ -3,8 +3,7 @@ package authentication;
 
 service Authentication {
     rpc GetToken (TokenClaims) returns (Token);
-    rpc VerifyToken (Token) returns (Status);
-    rpc GetTokenClaim (Token) returns (TokenClaimsWithResult)
+    rpc GetTokenClaim (Token) returns (TokenClaimsWithResult);
 }
 
 message TokenClaims {
