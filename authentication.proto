@@ -4,6 +4,7 @@ package authentication;
 service Authentication {
     rpc GetToken (TokenClaims) returns (Token);
     rpc VerifyToken (Token) returns (Status);
+    rpc GetTokenClaim (Token) returns (TokenClaimsWithResult)
 }
 
 message TokenClaims {
@@ -14,6 +15,12 @@ message TokenClaims {
     string issuer = 4;
     int64 not_before = 5;
     string subject = 6;
+}
+
+message TokenClaimsWithResult {
+    // Request message contains token claims
+    Status result = 1;
+    TokenClaims claim =2;
 }
 
 message Token {
