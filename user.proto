@@ -1,0 +1,78 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+package user;
+
+// The User message represents the user model.
+message User {
+    string id = 1;        // Unique identifier for the user
+    string name = 2;      // Name of the user
+    string email = 3;     // Email address of the user
+    string password = 4;
+    UserRole role = 5;
+    UserStatus status = 6;
+    string provider = 7;
+    google.protobuf.Timestamp created_at = 8;
+    google.protobuf.Timestamp update_at = 9;
+}
+
+// Request message for creating a new user.
+message CreateUserRequest {
+    User user = 1;        // The user to be created
+}
+
+// Response message for creating a new user.
+message CreateUserResponse {
+    User user = 1;        // The created user
+}
+
+// Request message for retrieving a user by ID.
+message GetUserRequest {
+    string id = 1;        // The ID of the user to retrieve
+}
+
+// Response message for retrieving a user by ID.
+message GetUserResponse {
+    User user = 1;        // The retrieved user
+}
+
+// Request message for updating an existing user.
+message UpdateUserRequest {
+    User user = 1;        // The user with updated information
+}
+
+// Response message for updating an existing user.
+message UpdateUserResponse {
+    User user = 1;        // The updated user
+}
+
+// Request message for deleting a user by ID.
+message DeleteUserRequest {
+    string id = 1;        // The ID of the user to delete
+}
+
+// Response message for deleting a user by ID.
+message DeleteUserResponse {
+    bool success = 1;    // Whether the deletion was successful
+}
+
+
+enum UserRole {
+  NORMAL = 0;
+  ADMIN= 1;
+  SUPER = 2;
+}
+
+enum UserStatus {
+  ACTIVE = 0;
+  INACTIVE= 1;
+  BLACKLISTED = 2;
+}
+
+// The UserService gRPC service definition.
+service UserService {
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+    rpc GetUser (GetUserRequest) returns (GetUserResponse);
+    rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
+    rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+}
